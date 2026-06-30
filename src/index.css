@@ -9,9 +9,9 @@
   --green-dim: #003b00;
   --green-glow: rgba(0, 255, 65, 0.15);
 
-  --text-primary: #e0e0e0;
-  --text-secondary: #888888;
-  --text-muted: #555555;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-muted: #777777;
   --text-green: #00ff41;
 
   --border-color: #1a3a1a;
@@ -156,5 +156,98 @@ a:hover {
 @media (max-width: 768px) {
   .section {
     padding: 48px 16px;
+  }
+}
+
+.section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-section {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+
+.hero-section.visible {
+  opacity: 1;
+}
+
+.project-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, border-color 0.2s, box-shadow 0.2s;
+  transition-delay: calc(var(--i, 0) * 100ms);
+}
+
+.section.visible .project-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-category {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition-delay: calc(var(--i, 0) * 100ms);
+}
+
+.section.visible .skill-category {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.section.visible .contact-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-card:first-child {
+  transition-delay: 100ms;
+}
+
+.contact-card:last-child {
+  transition-delay: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section,
+  .hero-section,
+  .project-card,
+  .skill-category,
+  .contact-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .skills-carousel-track {
+    animation: none;
+  }
+
+  .skills-bar-fill {
+    animation: none;
+    width: 85%;
+  }
+
+  .skills-carousel-item svg {
+    animation: none;
+  }
+
+  .type-cursor {
+    animation: none;
+    opacity: 1;
   }
 }

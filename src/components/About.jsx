@@ -1,6 +1,10 @@
+import useScrollReveal from './useScrollReveal'
+
 export default function About() {
+  const [ref, visible] = useScrollReveal()
+
   return (
-    <section id="about" className="section">
+    <section id="about" ref={ref} className={`section${visible ? ' visible' : ''}`}>
       <p className="section-title">whoami</p>
       <h2 className="section-heading">Sobre Mim</h2>
 

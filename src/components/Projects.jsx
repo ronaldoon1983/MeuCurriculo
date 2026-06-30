@@ -1,3 +1,5 @@
+import useScrollReveal from './useScrollReveal'
+
 const projects = [
   {
     name: 'Farmácia Hebrom',
@@ -56,14 +58,16 @@ const projects = [
 ]
 
 export default function Projects() {
+  const [ref, visible] = useScrollReveal()
+
   return (
-    <section id="projects" className="section">
+    <section id="projects" ref={ref} className={`section${visible ? ' visible' : ''}`}>
       <p className="section-title">ls -la ./projetos</p>
       <h2 className="section-heading">Projetos</h2>
 
       <div className="projects-grid">
         {projects.map((project, index) => (
-          <article key={index} className="project-card">
+          <article key={index} className="project-card" style={{ '--i': index }}>
             <div className="project-header">
               <div className="project-dots">
                 <span className="dot red" />

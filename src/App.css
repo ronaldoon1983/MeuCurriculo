@@ -35,20 +35,27 @@
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 700;
   color: var(--text-primary);
-  line-height: 1.1;
-  margin-bottom: 1rem;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
   letter-spacing: -1px;
 }
 
-.hero-sub {
-  font-weight: 300;
-  color: var(--text-muted);
-  font-size: 0.6em;
+.hero-first {
   display: block;
-  margin-top: 0.2em;
+  color: var(--green-primary);
+  text-shadow: 0 0 30px var(--green-glow);
+}
+
+.hero-last {
+  display: block;
+  font-weight: 300;
+  color: var(--text-primary);
+  font-size: 0.65em;
+  letter-spacing: 2px;
+  opacity: 0.8;
 }
 
 .hero-type {
@@ -351,6 +358,79 @@
 }
 
 /* ====== SKILLS ====== */
+.skills-carousel {
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-card);
+  padding: 16px 0;
+  position: relative;
+}
+
+.skills-carousel::before,
+.skills-carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.skills-carousel::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg-card), transparent);
+}
+
+.skills-carousel::after {
+  right: 0;
+  background: linear-gradient(-90deg, var(--bg-card), transparent);
+}
+
+.skills-carousel-track {
+  display: flex;
+  gap: 40px;
+  width: fit-content;
+  animation: scroll-carousel 30s linear infinite;
+}
+
+.skills-carousel:hover .skills-carousel-track {
+  animation-play-state: paused;
+}
+
+.skills-carousel-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.skills-carousel-item svg {
+  font-size: 1.5rem;
+  color: var(--green-primary);
+  animation: spin-icon 4s linear infinite;
+}
+
+.skills-carousel:hover .skills-carousel-item svg {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-carousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes spin-icon {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

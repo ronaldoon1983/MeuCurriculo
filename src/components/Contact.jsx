@@ -1,6 +1,10 @@
+import useScrollReveal from './useScrollReveal'
+
 export default function Contact() {
+  const [ref, visible] = useScrollReveal()
+
   return (
-    <section id="contact" className="section">
+    <section id="contact" ref={ref} className={`section${visible ? ' visible' : ''}`}>
       <p className="section-title">./contato.sh</p>
       <h2 className="section-heading">Contato</h2>
 

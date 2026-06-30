@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import useScrollReveal from './useScrollReveal'
 
 const phrases = [
   'Desenvolvedor Full Stack',
@@ -30,25 +31,29 @@ export default function Hero() {
         setCharIndex(charIndex - 1)
       }, 30)
     } else if (deleting && charIndex === 0) {
-      setDeleting(false)
-      setPhraseIndex((phraseIndex + 1) % phrases.length)
+      timeout = setTimeout(() => {
+        setDeleting(false)
+        setPhraseIndex((phraseIndex + 1) % phrases.length)
+      }, 100)
     }
 
     return () => clearTimeout(timeout)
   }, [charIndex, deleting, phraseIndex])
+
+  const [heroRef, heroVisible] = useScrollReveal({ threshold: 0.1 })
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <section className="hero-section">
+    <section ref={heroRef} className={`hero-section${heroVisible ? ' visible' : ''}`}>
       <div className="hero-overlay" />
       <div className="hero-content">
         <div className="hero-tag">&gt; init_portfolio.exe</div>
         <h1 className="hero-name">
-          Ronaldo Oliveira<br />
-          <span className="hero-sub">do Nascimento</span>
+          <span className="hero-first">Ronaldo Oliveira</span>
+          <span className="hero-last">do Nascimento</span>
         </h1>
         <p className="hero-type">
           <span className="type-label">$ </span>
