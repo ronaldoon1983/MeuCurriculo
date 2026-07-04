@@ -1,4 +1,5 @@
 import { Lenis } from 'lenis/react'
+import CustomCursor from './components/CustomCursor'
 import MatrixRain from './components/MatrixRain'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -11,6 +12,7 @@ import './App.css'
 function App() {
   return (
     <Lenis root>
+      <CustomCursor />
       <MatrixRain />
       <Hero />
       <About />
