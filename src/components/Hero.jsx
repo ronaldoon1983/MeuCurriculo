@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLenis } from 'lenis/react'
 import useScrollReveal from './useScrollReveal'
 
 const phrases = [
@@ -40,10 +41,11 @@ export default function Hero() {
     return () => clearTimeout(timeout)
   }, [charIndex, deleting, phraseIndex])
 
+  const lenis = useLenis()
   const [heroRef, heroVisible] = useScrollReveal({ threshold: 0.1 })
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    lenis?.scrollTo(`#${id}`)
   }
 
   return (
