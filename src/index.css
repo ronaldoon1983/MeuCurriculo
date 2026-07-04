@@ -33,16 +33,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  cursor: none;
 }
 
 body {
   background: var(--bg-primary);
   min-height: 100vh;
   overflow-x: hidden;
-}
-
-body {
-  cursor: none;
 }
 
 body::before {
@@ -109,22 +106,22 @@ body::before {
 }
 
 @media (max-width: 768px) {
-  body {
-    cursor: auto;
+  * {
+    cursor: auto !important;
   }
   .custom-cursor-dot,
   .custom-cursor-ring {
-    display: none;
+    display: none !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body {
-    cursor: auto;
+  * {
+    cursor: auto !important;
   }
   .custom-cursor-dot,
   .custom-cursor-ring {
-    display: none;
+    display: none !important;
   }
 }
 

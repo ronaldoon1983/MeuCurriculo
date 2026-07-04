@@ -3,55 +3,46 @@ import { useEffect, useRef } from 'react'
 export default function CustomCursor() {
   const dotRef = useRef(null)
   const ringRef = useRef(null)
-  const posRef = useRef({ x: 0, y: 0 })
-  const ringPosRef = useRef({ x: 0, y: 0 })
+  const mouseRef = useRef({ x: 0, y: 0 })
+  const ringRef2 = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
     const dot = dotRef.current
     const ring = ringRef.current
     if (!dot || !ring) return
 
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const onMouse = (e) => {
-      posRef.current = { x: e.clientX, y: e.clientY }
+    const onMove = (e) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY }
       dot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
     }
 
     const onHover = () => dot.classList.add('cursor-hover')
     const offHover = () => dot.classList.remove('cursor-hover')
 
-    const raf = () => {
-      const rp = ringPosRef.current
-      const p = posRef.current
-      rp.x += (p.x - rp.x) * 0.12
-      rp.y += (p.y - rp.y) * 0.12
-      ring.style.transform = `translate(${rp.x - 20}px, ${rp.y - 20}px)`
-      requestAnimationFrame(raf)
+    window.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseover', (e) => {
+      const t = e.target.closest('a, button, input, textarea, [data-cursor]')
+      if (t) onHover()
+    })
+    document.addEventListener('mouseout', (e) => {
+      const t = e.target.closest('a, button, input, textarea, [data-cursor]')
+      if (t) offHover()
+    })
+
+    const tick = () => {
+      const r = ringRef2.current
+      const m = mouseRef.current
+      r.x += (m.x - r.x) * 0.12
+      r.y += (m.y - r.y) * 0.12
+      ring.style.transform = `translate(${r.x - 20}px, ${r.y - 20}px)`
+      requestAnimationFrame(tick)
     }
-
-    window.addEventListener('mousemove', onMouse)
-    requestAnimationFrame(raf)
-
-    document.querySelectorAll('a, button, input, textarea, [data-cursor]').forEach((el) => {
-      el.addEventListener('mouseenter', onHover)
-      el.addEventListener('mouseleave', offHover)
-    })
-
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll('a, button, input, textarea, [data-cursor]').forEach((el) => {
-        el.removeEventListener('mouseenter', onHover)
-        el.removeEventListener('mouseleave', offHover)
-        el.addEventListener('mouseenter', onHover)
-        el.addEventListener('mouseleave', offHover)
-      })
-    })
-    observer.observe(document.body, { childList: true, subtree: true })
+    requestAnimationFrame(tick)
 
     return () => {
-      window.removeEventListener('mousemove', onMouse)
-      observer.disconnect()
+      window.removeEventListener('mousemove', onMove)
     }
   }, [])
 
