@@ -29,11 +29,13 @@
   background: var(--bg-primary);
 }
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  cursor: none;
+  cursor: none !important;
 }
 
 body {
@@ -106,7 +108,9 @@ body::before {
 }
 
 @media (max-width: 768px) {
-  * {
+  *,
+  *::before,
+  *::after {
     cursor: auto !important;
   }
   .custom-cursor-dot,
@@ -116,7 +120,9 @@ body::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     cursor: auto !important;
   }
   .custom-cursor-dot,
